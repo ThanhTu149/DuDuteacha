@@ -1,6 +1,6 @@
 # DuDu — Bảng công việc (Task Board)
 
-Bảng theo dõi Phase 3 (triển khai định hướng art direction đã kiểm chứng) và Phase 6 (vòng lặp fix → review), nghiệm thu trên 5 viewport: 320 / 390 / 768 / 1024 / 1440.
+Bảng theo dõi Phase 3 (triển khai art direction), Phase 6 (vòng lặp fix → review) và Phase 7 (tuỳ chỉnh món), nghiệm thu trên 5 viewport: 320 / 390 / 768 / 1024 / 1440.
 
 ## Trạng thái tổng
 
@@ -8,6 +8,7 @@ Bảng theo dõi Phase 3 (triển khai định hướng art direction đã kiể
 - Tương phản: **334/334 mẫu chữ đạt WCAG AA**, thấp nhất đo được 5,39:1; viền focus 16,80:1; toàn bộ icon và viền control ≥ 3:1.
 - Tràn ngang: `scrollWidth === clientWidth` ở cả 5 viewport; **0 phần tử** vượt mép.
 - Antigravity review bản build (QA-003): **0 High, 0 Medium, 4 Low** — cả 4 Low đã được sửa và đo lại.
+- Phase 7 tuỳ chỉnh món: DeepSeek recheck **0 High / 0 Medium tĩnh**; Antigravity QA-202 **FINAL GATE PASS**; harness Chromium mới **71/71 PASS** trên 5 viewport và các luồng dữ liệu/tương tác trọng yếu.
 
 | ID | Owner | Status | Deliverable | Acceptance criteria |
 |---|---|---|---|---|
@@ -24,8 +25,19 @@ Bảng theo dõi Phase 3 (triển khai định hướng art direction đã kiể
 | QA-101 | DeepSeek Harness | Complete | Harness regression đa viewport + lần chạy nghiệm thu cuối. | 55 ca test (T1–T11) gồm HTTP 200, 3 filter, toán giỏ hàng, localStorage hỏng, drawer a11y, copy, reduced motion, touch target, overflow, an toàn thông tin kinh doanh. **Kết quả: 55/55 PASS.** |
 | QA-003 | Antigravity | Complete | `docs/reviews/antigravity-build-review.md` — review thị giác bản build (agy conversation `e991252a-1bae-4f9e-a926-bbf1b40b7198`). | Xác nhận/bác bỏ từng đề xuất kèm số đo; không sửa `dist/`. **Kết quả: 0 High, 0 Medium, 4 Low** (REV-01..REV-04) — cả 4 đã sửa và đo lại trong `docs/reviews/antigravity-build-review.md` §6. |
 | QA-FINAL | Antigravity | Complete | Gate chỉ-đọc trên build cuối (agy conversation `76d6d23b-d94e-46cb-bc2b-6ad300599ca7`). | Kiểm tra lại 320/390/768/1024/1440 sau REV-01..REV-04: **FINAL GATE PASS**, 0 High, 0 Medium, không sửa `dist/`. |
+| PM-002 | DeepSeek Harness | Complete | `docs/reviews/customization-product-plan.md` — product/QA plan cho luồng tuỳ chỉnh món. | Chốt model cấu hình, migration giỏ v2, 22 acceptance criteria và T12–T20; không sửa `dist/`. |
+| UX-201 | Antigravity | Complete | `docs/reviews/customization-visual-spec.md` — visual/component spec (agy conversation `be38ecb3-3794-48ee-bc85-4cb8fc47d16a`). | Có trạng thái desktop/mobile, tương tác, accessibility và reduced motion; không sửa `dist/`. Các điểm xung đột được PM-002 hiệu chỉnh trước khi code. |
+| FE-101 | Codex | Complete | Markup semantic cho dialog tuỳ chỉnh: size, đường, đá, topping, số lượng và CTA giá trực tiếp. | Fieldset/legend đầy đủ; target ≥ 44px; không dùng native `dialog`; không emoji trong control. |
+| FE-102 | Codex | Complete | Model giỏ `dudu-cart-v2`, canonical key, migration v1 và hàm giá duy nhất. | Không tin giá từ storage; record sai được chuẩn hoá; cấu hình trùng được gộp; xoá key cũ chỉ sau khi ghi v2 thành công. |
+| FE-103 | Codex | Complete | Controller dialog và nguyên tắc một overlay tại một thời điểm. | Mở cart đóng custom và ngược lại; Escape/close trả focus; nền inert đúng scope. |
+| FE-104 | Codex | Complete | Cart hiển thị cấu hình và gộp đúng từng biến thể. | Cùng cấu hình tăng số lượng; khác cấu hình là dòng riêng; giới hạn 20 ly/dòng và 3 topping. |
+| FE-105 | Codex | Complete | Adaptive bottom sheet dưới 720px, centered modal từ 720px; responsive/reduced-motion. | Không chip scroll ngang; one-column; target ≥ 44px; trạng thái focus/checked/disabled rõ. |
+| FE-106 | Codex | Complete | Microcopy và giá demo minh bạch. | Thể tích, phụ thu và topping đều ghi “minh hoạ”; toast xuất hiện sau khi dialog đóng; nội dung copy có cấu hình và tổng tạm tính. |
+| QA-201 | DeepSeek Harness | Complete | `docs/reviews/customization-qa.md` — static audit + recheck sau fix. | M-01..M-04 đã FIXED; kết luận recheck **0 High / 0 Medium tĩnh**; không sửa `dist/`. |
+| QA-202 | Antigravity | Complete | `docs/reviews/antigravity-customization-review.md` — browser review + recheck bản vá. | 5 viewport không tràn, target ≥44px, console 0 lỗi; focus trap recheck tại 390/1440; **FINAL GATE PASS**. |
 | BIZ-001 | Human owner | Needs owner decision | Xác nhận giá menu thật, địa chỉ, số điện thoại, giờ mở cửa và kênh nhận đơn. | Chủ quán cung cấp thông tin thật; nếu chưa có, site tiếp tục ghi "đang cập nhật" và không được bịa. |
 | BIZ-002 | Human owner | Needs owner decision | (a) Tự host Fraunces + Be Vietnam Pro dạng woff2 trong `dist/assets/fonts/` hay tiếp tục Google Fonts; (b) phê duyệt giọng văn cho thẻ "06 món minh hoạ" và câu "Một ngụm dịu vị, cả ngày thêm vui." ghi là "DuDu nhắn bạn". | Có quyết định bằng văn bản; nếu tự host thì tiêu chí "loads with local assets" đạt, nếu không thì ghi nhận ngoại lệ có ý thức. |
+| BIZ-003 | Human owner | Needs owner decision | Xác nhận size, thể tích, mức đường/đá, danh sách topping và phụ thu thật. | Khi chưa xác nhận, UI luôn ghi rõ “minh hoạ” và không gọi đây là tuỳ chọn/giá chính thức. |
 
 ## Vòng lặp fix → review (Phase 6)
 
