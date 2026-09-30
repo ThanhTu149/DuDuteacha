@@ -1,5 +1,5 @@
 const products = [
-  { id: "brown-sugar", name: "Sữa Tươi Trân Châu Đường Đen", shortName: "Đường Đen", price: 45000, category: "milk-tea", badge: "Bán chạy", tone: "caramel", color: "#c98545", tilt: "-4deg", description: "Sữa tươi mát, đường đen thơm caramel, trân châu dẻo ấm." },
+  { id: "brown-sugar", name: "Sữa Tươi Trân Châu Đường Đen", shortName: "Đường Đen", price: 45000, category: "milk-tea", badge: "Gợi ý", tone: "caramel", color: "#c98545", tilt: "-4deg", description: "Sữa tươi mát, đường đen thơm caramel, trân châu dẻo ấm." },
   { id: "oolong", name: "Oolong Sữa Nướng", shortName: "Oolong Sữa Nướng", price: 42000, category: "milk-tea", badge: "Đậm trà", tone: "cream", color: "#b9794b", tilt: "3deg", description: "Oolong rang thơm, sữa nướng béo nhẹ, hậu vị sạch." },
   { id: "strawberry", name: "Dâu Kem Sữa", shortName: "Dâu Kem Sữa", price: 48000, category: "milk-tea", badge: "Mới", tone: "pink", color: "#ef7d93", tilt: "-2deg", description: "Dâu chua ngọt, sữa tươi và lớp kem mằn mặn vui miệng." },
   { id: "matcha", name: "Matcha Mochi", shortName: "Matcha Mochi", price: 49000, category: "milk-tea", badge: "Thơm béo", tone: "green", color: "#8fb75d", tilt: "4deg", description: "Matcha đậm vị, sữa mượt và mochi mềm dẻo." },
@@ -17,7 +17,20 @@ const copyStatus = document.querySelector("#copy-status");
 const toast = document.querySelector("#toast");
 const drawer = document.querySelector(".cart-drawer");
 let lastFocused = null;
-let cart = JSON.parse(localStorage.getItem("dudu-cart") || "{}");
+
+function loadCart() {
+  try {
+    const stored = JSON.parse(localStorage.getItem("dudu-cart") || "{}");
+    if (!stored || Array.isArray(stored) || typeof stored !== "object") return {};
+    return Object.fromEntries(Object.entries(stored).filter(([id, quantity]) =>
+      products.some((item) => item.id === id) && Number.isInteger(quantity) && quantity > 0
+    ));
+  } catch {
+    return {};
+  }
+}
+
+let cart = loadCart();
 
 function renderMenu(filter = "all") {
   const visible = filter === "all" ? products : products.filter((item) => item.category === filter);
@@ -38,14 +51,18 @@ function renderMenu(filter = "all") {
 }
 
 function saveCart() {
-  localStorage.setItem("dudu-cart", JSON.stringify(cart));
+  try {
+    localStorage.setItem("dudu-cart", JSON.stringify(cart));
+  } catch {
+    // The cart still works for this page view when storage is unavailable.
+  }
 }
 
 function cartEntries() {
   return Object.entries(cart).map(([id, quantity]) => ({ ...products.find((item) => item.id === id), quantity })).filter((item) => item.id);
 }
 
-function renderCart() {
+function renderCart(focusTarget = null) {
   const entries = cartEntries();
   const count = entries.reduce((sum, item) => sum + item.quantity, 0);
   const total = entries.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -65,6 +82,10 @@ function renderCart() {
     </div>
   `).join("");
   saveCart();
+  if (focusTarget) {
+    const nextTarget = drawer.querySelector(`[data-${focusTarget.action}="${focusTarget.id}"]`);
+    (nextTarget || drawer.querySelector(".icon-button") || drawer).focus();
+  }
 }
 
 function showToast(message) {
@@ -76,6 +97,7 @@ function showToast(message) {
 
 function openCart() {
   lastFocused = document.activeElement;
+  document.querySelectorAll("header, main, footer").forEach((node) => { node.inert = true; });
   document.body.classList.add("drawer-open");
   drawer.setAttribute("aria-hidden", "false");
   drawer.querySelector(".icon-button").focus();
@@ -84,7 +106,8 @@ function openCart() {
 function closeCart() {
   document.body.classList.remove("drawer-open");
   drawer.setAttribute("aria-hidden", "true");
-  if (lastFocused) lastFocused.focus();
+  document.querySelectorAll("header, main, footer").forEach((node) => { node.inert = false; });
+  if (lastFocused?.isConnected) lastFocused.focus();
 }
 
 document.addEventListener("click", (event) => {
@@ -95,12 +118,15 @@ document.addEventListener("click", (event) => {
     showToast("Đã thêm một ly vào giỏ");
   }
   const increase = event.target.closest("[data-increase]");
-  if (increase) { cart[increase.dataset.increase] += 1; renderCart(); }
+  if (increase) {
+    cart[increase.dataset.increase] += 1;
+    renderCart({ action: "increase", id: increase.dataset.increase });
+  }
   const decrease = event.target.closest("[data-decrease]");
   if (decrease) {
     cart[decrease.dataset.decrease] -= 1;
     if (cart[decrease.dataset.decrease] <= 0) delete cart[decrease.dataset.decrease];
-    renderCart();
+    renderCart({ action: "decrease", id: decrease.dataset.decrease });
   }
   if (event.target.closest("[data-open-cart]")) openCart();
   if (event.target.closest("[data-close-cart]")) closeCart();
