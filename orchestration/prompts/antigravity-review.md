@@ -1,0 +1,2 @@
+Read AGENTS.md, REQUIREMENTS.md, TASKS.md, docs/design-spec.md, and docs/architecture.md. Review the DuDu site served from dist/ at 390x844, 768x1024, and 1440x900. Check hierarchy, Vietnamese typography, clipping, horizontal overflow, image cropping, control states, cart usability, keyboard focus, and reduced motion. Do not edit dist/. Write only docs/reviews/antigravity-visual.md. Each finding must include severity, viewport, evidence, and a narrow recommended fix. If there are no actionable findings, say so explicitly and list the viewports checked.
+

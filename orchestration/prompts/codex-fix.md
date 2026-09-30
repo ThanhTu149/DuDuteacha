@@ -1,0 +1,2 @@
+Read AGENTS.md, REQUIREMENTS.md, TASKS.md, docs/reviews/antigravity-visual.md, and docs/reviews/qa.md. Implement only confirmed findings assigned to FE-003. Preserve the DuDu brand and current behavior. Do not invent business details. Verify the static asset paths, JavaScript syntax, menu filters, cart math, local persistence, keyboard Escape behavior, and responsive layout. Update TASKS.md with checks run and any remaining risk.
+

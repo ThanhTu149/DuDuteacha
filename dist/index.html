@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="DuDu — trà sữa đậm vị, topping vui miệng và những ly nước được pha mới mỗi ngày." />
+    <meta name="theme-color" content="#5a1236" />
+    <title>DuDu — Trà sữa vui từ ngụm đầu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,700;9..144,800&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%235a1236'/%3E%3Cpath d='M17 20h30l-4 31H21z' fill='%23fff5df'/%3E%3Cpath d='M19 27h26l-1 9H20z' fill='%23f06a8a'/%3E%3Ccircle cx='27' cy='43' r='3' fill='%235a1236'/%3E%3Ccircle cx='36' cy='46' r='3' fill='%235a1236'/%3E%3Cpath d='M38 10l-8 25' stroke='%23c9f36d' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#menu">Đi thẳng đến menu</a>
+
+    <header class="site-header" id="top">
+      <a class="brand" href="#top" aria-label="DuDu - về đầu trang">
+        <span class="brand-mark" aria-hidden="true">D</span>
+        <span>DuDu</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Điều hướng chính">
+        <a href="#menu">Menu</a>
+        <a href="#story">Chuyện DuDu</a>
+        <a href="#visit">Ghé quán</a>
+      </nav>
+
+      <button class="cart-button" type="button" data-open-cart aria-label="Mở giỏ hàng, 0 món">
+        <span aria-hidden="true">◒</span>
+        <span>Giỏ hàng</span>
+        <span class="cart-count" aria-live="polite">0</span>
+      </button>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span>Pha mới mỗi ngày</p>
+          <h1 id="hero-title">Vui từ<br /><em>ngụm đầu.</em></h1>
+          <p class="hero-lede">Trà thơm đậm, sữa vừa béo, topping nấu tại quán. DuDu pha một ly hợp gu bạn — không quá ngọt, chẳng hề nhạt vui.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#menu">Chọn món ngay</a>
+            <a class="text-link" href="#story">Tụi mình pha thế nào?</a>
+          </div>
+          <div class="hero-notes" aria-label="Cam kết của DuDu">
+            <span>Trà ủ trong ngày</span>
+            <span>Tuỳ chỉnh độ ngọt</span>
+            <span>Topping nhà nấu</span>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-sticker" aria-hidden="true">3 vị<br />đúng gu</div>
+          <img src="./assets/dudu-hero.png" alt="Ba ly trà sữa DuDu vị đường đen, dâu và matcha" width="1536" height="1024" fetchpriority="high" />
+          <div class="hero-caption">
+            <strong>Best trio</strong>
+            <span>Đường đen · Dâu · Matcha</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="ticker" aria-label="Điểm nổi bật">
+        <div class="ticker-track">
+          <span>Trà thật vị</span><b>✦</b><span>Ít ngọt vẫn ngon</span><b>✦</b><span>Topping mỗi ngày</span><b>✦</b><span>Pha theo gu bạn</span><b>✦</b>
+          <span aria-hidden="true">Trà thật vị</span><b aria-hidden="true">✦</b><span aria-hidden="true">Ít ngọt vẫn ngon</span><b aria-hidden="true">✦</b><span aria-hidden="true">Topping mỗi ngày</span><b aria-hidden="true">✦</b><span aria-hidden="true">Pha theo gu bạn</span><b aria-hidden="true">✦</b>
+        </div>
+      </section>
+
+      <section class="menu-section" id="menu" aria-labelledby="menu-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow"><span></span>Menu DuDu</p>
+            <h2 id="menu-title">Hôm nay uống gì?</h2>
+          </div>
+          <p>Sáu món dễ mê, ba nhóm vị. Chọn món rồi chỉnh ngọt, đá theo đúng gu của bạn.</p>
+        </div>
+
+        <div class="menu-toolbar" role="group" aria-label="Lọc menu">
+          <button class="filter-chip is-active" type="button" data-filter="all" aria-pressed="true">Tất cả</button>
+          <button class="filter-chip" type="button" data-filter="milk-tea" aria-pressed="false">Trà sữa</button>
+          <button class="filter-chip" type="button" data-filter="fruit-tea" aria-pressed="false">Trà trái cây</button>
+        </div>
+
+        <div class="menu-grid" id="menu-grid"></div>
+      </section>
+
+      <section class="story-section" id="story" aria-labelledby="story-title">
+        <div class="story-card story-main">
+          <p class="eyebrow light"><span></span>Chuyện DuDu</p>
+          <h2 id="story-title">Một ly vui,<br />không cần cầu kỳ.</h2>
+          <p>DuDu bắt đầu từ một ý đơn giản: trà sữa ngon phải để người uống cảm được vị trà, chọn được độ ngọt và luôn nhận một ly vừa pha. Vì vậy tụi mình làm menu gọn, nấu topping theo mẻ nhỏ và ghi nhớ từng gu quen.</p>
+          <a class="button button-light" href="#visit">Tìm đường ghé DuDu</a>
+        </div>
+        <div class="story-card story-stat">
+          <span class="stat-number">04h</span>
+          <strong>Mỗi mẻ trà</strong>
+          <p>Được thay mới để giữ mùi thơm và hậu vị sạch.</p>
+        </div>
+        <div class="story-card story-quote">
+          <div class="mini-cup" aria-hidden="true">D</div>
+          <blockquote>“Uống một ngụm, mood lên một bậc.”</blockquote>
+          <span>— Hội bạn DuDu</span>
+        </div>
+      </section>
+
+      <section class="visit-section" id="visit" aria-labelledby="visit-title">
+        <div class="visit-intro">
+          <p class="eyebrow"><span></span>Ghé DuDu</p>
+          <h2 id="visit-title">Hẹn bạn một ly.</h2>
+          <p>Ngồi lại tám chuyện hoặc đặt mang đi. Tụi mình đang hoàn thiện địa chỉ chính thức để đón bạn thật chỉn chu.</p>
+        </div>
+        <div class="visit-details">
+          <article>
+            <span>01</span>
+            <div>
+              <h3>Khu vực</h3>
+              <p>TP. Hồ Chí Minh<br />Địa chỉ sẽ cập nhật khi khai trương</p>
+            </div>
+          </article>
+          <article>
+            <span>02</span>
+            <div>
+              <h3>Giờ mở cửa</h3>
+              <p>Thứ Hai – Chủ Nhật<br />09:00 – 22:00</p>
+            </div>
+          </article>
+          <article>
+            <span>03</span>
+            <div>
+              <h3>Đặt món</h3>
+              <p>Thêm món vào giỏ và sao chép đơn.<br />Kênh nhận đơn sẽ cập nhật sớm.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-brand">
+        <span class="brand-mark" aria-hidden="true">D</span>
+        <strong>DuDu</strong>
+      </div>
+      <p>Trà thật vị. Vui thật lòng.</p>
+      <a href="#top">Lên đầu trang</a>
+    </footer>
+
+    <div class="drawer-backdrop" data-close-cart></div>
+    <aside class="cart-drawer" aria-labelledby="cart-title" aria-hidden="true">
+      <div class="drawer-header">
+        <div>
+          <p class="eyebrow"><span></span>Đơn của bạn</p>
+          <h2 id="cart-title">Giỏ DuDu</h2>
+        </div>
+        <button class="icon-button" type="button" data-close-cart aria-label="Đóng giỏ hàng">×</button>
+      </div>
+      <div class="cart-items" id="cart-items"></div>
+      <div class="cart-empty" id="cart-empty">
+        <span aria-hidden="true">◡</span>
+        <strong>Giỏ đang chờ món ngon</strong>
+        <p>Chọn một ly trong menu để bắt đầu nhé.</p>
+      </div>
+      <div class="cart-summary" id="cart-summary" hidden>
+        <div><span>Tạm tính</span><strong id="cart-total">0đ</strong></div>
+        <p>Đây là bản đặt món thử. Bạn có thể sao chép đơn để gửi cho cửa hàng khi kênh nhận đơn được cập nhật.</p>
+        <button class="button button-primary button-full" type="button" id="copy-order">Sao chép đơn hàng</button>
+        <span class="copy-status" id="copy-status" aria-live="polite"></span>
+      </div>
+    </aside>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="./app.js"></script>
+  </body>
+</html>
